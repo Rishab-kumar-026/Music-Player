@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://kit.fontawesome.com/39472fb910.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="music-player">
+        <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+
+        <img src="media/your name img.webp">
+        <h1>Shape Of You</h1>
+        <p>Ed Sheeran.</p>
+
+        <audio id="song">
+            <source src="media/shape of you song.mp3">
+        </audio>
+
+        <input type="range" id="progress">
+
+        <div class="icons">
+            <div> <i class="fa-solid fa-backward"></i> </div>
+            <div onclick="playPause()"> <i class="fa-solid fa-play" id="ctrl"></i> </div>
+            <div> <i class="fa-solid fa-forward"></i> </div>
+        </div>
+
+    </div>
+
+    <script>
+        let song = document.getElementById("song");
+        let crtl = document.getElementById("ctrl");
+        let progress_bar = document.getElementById("progress");
+
+
+        song.onloadedmetadata = function () {
+            progress_bar.max = song.duration;
+            progress_bar.value = song.currentTime;
+        }
+        setInterval(() => {
+            progress_bar.value = song.currentTime;
+        }, 1000);
+
+        function playPause() {
+            if (ctrl.classList.contains("fa-pause")) {
+                song.pause();
+                ctrl.classList.remove("fa-pause");
+                ctrl.classList.add("fa-play");
+            }
+            else {
+                song.play();
+                ctrl.classList.add("fa-pause");
+                ctrl.classList.remove("fa-play");
+            }
+
+        }
+
+        progress_bar.onchange = function () {
+            song.play();
+            ctrl.classList.add("fa-pause");
+            ctrl.classList.remove("fa-play");
+
+            song.currentTime = progress_bar.value;
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
